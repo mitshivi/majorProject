@@ -1,0 +1,111 @@
+<nav class="navbar navbar-expand-lg bg-dark fixed-top">
+
+    <ul class="navbar-nav">
+
+
+        <li class="nav-item col-lg-2"><a href="#" class="nav-link linknav">Home</a></li>
+
+        <li class="nav-item col-lg-6"><a href="#" class="nav-link linknav">Post an Ad</a></li>
+
+
+
+
+        <!--<li class="nav-item col-lg-4"><form><input type="text" class="form-control" [(ngModel)]='searchValue' [ngModelOptions]="{standalone: true}" placeholder="Search..." (input)="showSuggestions()"></form></li>
+        <li class="nav-item col-lg-3"><input type="button" class="btn" value="Search" (click)='Search();' ></li>-->
+        <li class="nav-item col-lg-8">
+
+            <form class="form-inline" role="form" #searchform="ngForm" (ngSubmit)="Search(searchform.form.value)" novalidate>
+
+                <div class="formbox"><input type="text" class="form-control mb-2 mr-sm-2 searchbox" [(ngModel)]='searchValue' name="searchValue"
+                        #inputref="ngModel" placeholder="Search for products by places, name and more ..." required>
+
+                    <input type="submit" class="btn mb-2 btn-sm" value="Search" [disabled]="!searchform.form.valid">
+
+                </div>
+
+            </form>
+
+        </li>
+
+
+
+
+        <li class="nav-item col-lg-2"></li>
+        <li class="nav-item dropdown col-lg-6"><a href="#" class="nav-link dropdown-toggle linknav" data-toggle="dropdown">My
+                Account</a>
+            <ul class="dropdown-menu">
+                <li class="dropdown-item">Profile</li>
+                <li class="dropdown-item">my-ads</li>
+                <li class="dropdown-item">Inbox</li>
+                <li class="dropdown-item">Logout</li>
+
+            </ul>
+        </li>
+
+
+
+
+    </ul>
+</nav>
+
+<br>
+<br><br>
+
+<div *ngIf="searchboo">
+
+    <div class="list-group dispsug">
+
+        <a class="list-group-item" *ngFor="let item of finalSuggestions" (click)="displaySearch(item)">{{item}}</a>
+
+    </div>
+
+</div>
+<!-- <div class="row">
+    <div class="col-md-3">
+        <div class="col-md-10">
+
+
+
+
+            <form><input type="search" class="form-control" placeholder="Search..."></form>
+
+            <hr>
+
+
+
+        </div>
+    </div>
+    <br>
+</div> -->
+
+<div class="row">
+
+    <div class="col-md-3">
+
+        <div class="col-md-10 fixed-sidebar">
+
+            <div id="accordion">
+                <div *ngFor='let category of categories'>
+                    <div class="card">
+                        <div class="card-header">
+                            <a href=#{{category}} class="card-link linkcolor" data-toggle="collapse">{{category}}</a>
+                        </div>
+                        <div id={{category}} class="collapse">
+                            <ul class="list-group list-group-flush fontside" *ngFor="let subcategory of subcategories[category]">
+                                <li class="list-group-item list-group-item-action" (click)=onTapSubCategory(category,subcategory)>{{subcategory}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <div class="col-md-8">
+        <router-outlet></router-outlet>
+    </div>
+</div>
